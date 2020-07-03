@@ -1,14 +1,10 @@
 <?php
 class Db {
-    private $host = "localhost";
-    private $user = "root";
-    private $password = "";
-    private $dbName = "IMDCurrency";
+    public static function connect(){
+        include_once(__DIR__."/../settings/settings.php");
 
-    protected function connect(){
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
-        $pdo = new PDO($dsn, $this->user, $this->password);
-        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $dsn = 'mysql:host=' . SETTINGS['db']['host'] . ';dbname=' . SETTINGS['db']['db'];
+        $pdo = new PDO($dsn, SETTINGS['db']['user'], SETTINGS['db']['password']);
         return $pdo;
     }
 }
