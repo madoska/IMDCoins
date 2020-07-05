@@ -35,21 +35,21 @@ class User
         }
     }
 
-    public function retrieveName($email){
+    public function retrieveName($userID){
         $pdo = Db::connect();
-        $stmt = $pdo->prepare("SELECT firstname, lastname FROM users WHERE email = :email");
-        $stmt->bindParam(':email', $email);
+        $stmt = $pdo->prepare("SELECT firstname, lastname FROM users WHERE userID = :userID");
+        $stmt->bindParam(':userID', $userID);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
-    public function sessionID($email){
+    public function userID($email){
         $pdo = Db::connect();
         $stmt = $pdo->prepare("SELECT userID FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchColumn();
         return $result;
     }
 

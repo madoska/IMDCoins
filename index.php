@@ -5,8 +5,6 @@ $getName = new User();
 $userID = $_SESSION['user'];
 $getName->setUserID($userID);
 $name = $getName->retrieveName($userID);
-
-echo $userID;
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +18,8 @@ echo $userID;
 
 <body>
     <h1>Welcome <?php echo $name['firstname'] . " " . $name['lastname']; ?></h1>
+    <div>
+    <a href="logout.php">Logout</a></div>
 </body>
 
 </html>

@@ -42,7 +42,8 @@ if (!empty($_POST['register'])) {
 
                         // start a session for the currently logged in user
                         session_start();
-                        $_SESSION['user'] = $userID;
+                        $getUser = $user->userID($email);
+                        $_SESSION['user'] = $getUser;
                         header("Location: index.php");
                     } else {
                         echo "Password too short.";
