@@ -61,7 +61,7 @@ class User
         $stmt = $pdo->prepare("SELECT COUNT(userID) FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
-        $result = $stmt->fetch();
+        $result = $stmt->fetchColumn();
 
         if ($result > 0) {
             return false;
