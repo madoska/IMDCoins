@@ -23,12 +23,10 @@ class User
 
     public function validateEmail($email)
     {
-        $whitelist = '@student.thomasmore.be';
-
         // Remove all illegal characters from email
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
-        // Validate e-mail
+        // Validate e-mail + check for Thomas More email address
         if (filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('|@student.thomasmore.be$|', $email)) {
             return true;
         } else {
