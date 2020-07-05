@@ -15,6 +15,15 @@ class Transaction
         return $result;
     }
 
+    public function saldo($userID){
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("SELECT SUM(amount) FROM transactions WHERE recipientID = :recipientID");
+        $stmt->bindParam(':recipientID', $userID);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
+        return $result;
+    }
+
     public function getUserID()
     {
         return $this->userID;
