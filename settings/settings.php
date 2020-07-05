@@ -4,6 +4,6 @@ const SETTINGS = [
         "user"      => "root",
         "password"  => "",
         "host"      => "localhost",
-        "db"        => "IMDCurrency"
+        "db"        => "imdcurrency"
     ]
 ];
