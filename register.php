@@ -42,8 +42,9 @@ if (!empty($_POST['register'])) {
 
                         // start a session for the currently logged in user
                         session_start();
-                        $getUser = $user->userID($email);
-                        $_SESSION['user'] = $getUser;
+                        $userID = $user->userID($email);
+                        $_SESSION['user'] = $userID;
+                        $activationTokens = $user->
                         header("Location: index.php");
                     } else {
                         echo "Password too short.";

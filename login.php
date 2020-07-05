@@ -12,8 +12,8 @@ if(!empty($_POST['login'])){
 
     if($result == 1){
         session_start();
-        $getUser = $validateLogin->userID($email);
-        $_SESSION['user'] = $getUser;
+        $userID = $validateLogin->userID($email);
+        $_SESSION['user'] = $userID;
         header("Location: index.php");
     }
 }
