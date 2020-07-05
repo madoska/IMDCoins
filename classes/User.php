@@ -35,7 +35,8 @@ class User
         }
     }
 
-    public function retrieveName($userID){
+    public function retrieveName($userID)
+    {
         $pdo = Db::connect();
         $stmt = $pdo->prepare("SELECT firstname, lastname FROM users WHERE userID = :userID");
         $stmt->bindParam(':userID', $userID);
@@ -44,7 +45,8 @@ class User
         return $result;
     }
 
-    public function userID($email){
+    public function userID($email)
+    {
         $pdo = Db::connect();
         $stmt = $pdo->prepare("SELECT userID FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
@@ -53,25 +55,40 @@ class User
         return $result;
     }
 
-    public function emailAvailable($email){
+    public function emailAvailable($email)
+    {
         $pdo = Db::connect();
         $stmt = $pdo->prepare("SELECT COUNT(userID) FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $count = implode($result);
+        $result = $stmt->fetch();
 
-        if($count > 0){
+        if ($result > 0) {
             return false;
         } else {
             return true;
         }
     }
 
-    public function validatePassword($password){
+    public function validateLogin($email, $password)
+    {
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("SELECT password FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        if (password_verify($password, $result['password'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function validatePassword($password)
+    {
         $length = strlen($password);
 
-        if($length < 5){
+        if ($length < 5) {
             return false;
         } else {
             return true;
