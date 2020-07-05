@@ -1,3 +1,14 @@
+<?php
+include_once(__DIR__ . "/inc/session.inc.php");
+
+$getName = new User();
+$userID = $_SESSION['user'];
+$getName->setUserID($userID);
+$name = $getName->retrieveName($userID);
+
+echo $userID;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +19,7 @@
 </head>
 
 <body>
-
+    <h1>Welcome <?php echo $name['firstname'] . " " . $name['lastname']; ?></h1>
 </body>
 
 </html>

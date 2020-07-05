@@ -35,6 +35,39 @@ class User
         }
     }
 
+    public function retrieveName($email){
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("SELECT firstname, lastname FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function sessionID($email){
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("SELECT userID FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function emailAvailable($email){
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("SELECT COUNT(userID) FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $count = implode($result);
+
+        if($count > 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public function validatePassword($password){
         $length = strlen($password);
 
