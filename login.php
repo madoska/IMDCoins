@@ -1,3 +1,24 @@
+<?php
+include_once(__DIR__ . "/classes/Db.php");
+include_once(__DIR__ . "/classes/User.php");
+
+if(!empty($_POST['login'])){
+    $validateLogin = new User();
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $validateLogin->setEmail($email);
+    $validateLogin->setPassword($password);
+    $result = $validateLogin->validateLogin($email, $password);
+
+    if($result == 1){
+        session_start();
+        $getUser = $validateLogin->userID($email);
+        $_SESSION['user'] = $getUser;
+        header("Location: index.php");
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
