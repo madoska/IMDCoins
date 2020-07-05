@@ -6,28 +6,40 @@ include_once(__DIR__ . "/classes/User.php");
 if (!empty($_POST['register'])) {
     // check if email is filled out
     if (!empty($_POST['email'])) {
-        // check if password is filled out
+        // check for thomas more email
         $verifyEmail = new User();
         $email = $_POST['email'];
         $verifyEmail->setEmail($email);
-        $verify = $verifyEmail->validateEmail($email);
+        $resultEmail = $verifyEmail->validateEmail($email);
 
-        if ($verify == 1) {
+        // if thomas more email = ok
+        if ($resultEmail == 1) {
+            // check if password and verifypassword are the same
             if (!empty($_POST['password']) && $_POST['password'] === $_POST['confirmPassword']) {
-                // register the user
-                $user = new User();
-                $firstname = $_POST['firstname'];
-                $lastname = $_POST['lastname'];
-                $email = $_POST['email'];
+                //check if password length is ok
+                $verifyPassword = new User();
                 $password = $_POST['password'];
-                $user->setFirstname($firstname);
-                $user->setLastname($lastname);
-                $user->setEmail($email);
-                $user->setPassword($password);
+                $verifyPassword->setPassword($password);
+                $resultPassword = $verifyPassword->validatePassword($password);
 
-                $register = $user->register($email, $password, $firstname, $lastname);
+                if ($resultPassword == 1) {
+                    // register the user
+                    $user = new User();
+                    $firstname = $_POST['firstname'];
+                    $lastname = $_POST['lastname'];
+                    $email = $_POST['email'];
+                    $password = $_POST['password'];
+                    $user->setFirstname($firstname);
+                    $user->setLastname($lastname);
+                    $user->setEmail($email);
+                    $user->setPassword($password);
+
+                    $register = $user->register($email, $password, $firstname, $lastname);
+                } else {
+                    echo "Password too short.";
+                }
             } else {
-                echo "Password too short.";
+                echo "Password doesn't match.";
             }
         } else {
             echo "Only Thomas More emails please.";

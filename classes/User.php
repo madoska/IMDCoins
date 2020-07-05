@@ -34,6 +34,16 @@ class User
         }
     }
 
+    public function validatePassword($password){
+        $length = strlen($password);
+
+        if($length < 5){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public function getUserID()
     {
         return $this->userID;
