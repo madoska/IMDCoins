@@ -13,6 +13,7 @@ class User
     {
         $pdo = Db::connect();
         $stmt = $pdo->prepare("INSERT INTO users (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)");
+        $password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
         $stmt->bindParam(':firstname', $firstname);
         $stmt->bindParam(':lastname', $lastname);
         $stmt->bindParam(':email', $email);
