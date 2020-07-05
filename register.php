@@ -33,8 +33,12 @@ if (!empty($_POST['register'])) {
                     $user->setLastname($lastname);
                     $user->setEmail($email);
                     $user->setPassword($password);
-
                     $register = $user->register($email, $password, $firstname, $lastname);
+
+                    // start a session for the currently logged in user
+                    session_start();
+                    $_SESSION['user'] = $email;
+                    header("Location: index.php");
                 } else {
                     echo "Password too short.";
                 }
