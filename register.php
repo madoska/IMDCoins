@@ -1,6 +1,7 @@
 <?php
 include_once(__DIR__ . "/classes/Db.php");
 include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Transaction.php");
 
 // if register form is submitted and not empty
 if (!empty($_POST['register'])) {
@@ -44,7 +45,10 @@ if (!empty($_POST['register'])) {
                         session_start();
                         $userID = $user->userID($email);
                         $_SESSION['user'] = $userID;
-                        $activationTokens = $user->
+                        $tokens = new Transaction();
+                        $tokens->setUserID($userID);
+                        $activationTokens = $tokens->activationTokens($userID);
+                        echo "Tokens sent.";
                         header("Location: index.php");
                     } else {
                         echo "Password too short.";
