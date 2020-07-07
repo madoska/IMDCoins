@@ -25,7 +25,40 @@ $sum = $saldo->saldo($userID);
     <h1>Welcome <?php echo $name['firstname'] . " " . $name['lastname']; ?></h1>
     <h4>Your saldo is <?php echo $sum; ?></h4>
     <div>
-    <a href="logout.php">Logout</a></div>
+        <input type="text" name="recipient" onKeyPress="searchResult()" id="recipient" placeholder="find a user">
+    </div>
+    <div>
+    </div>
+    <div>
+        <a href="logout.php">Logout</a>
+    </div>
+
+    <script>
+        function searchResult() {
+            setTimeout(function() { // timeout functie zorgt ervoor dat er geen delay is tussen keypress en wat er geprint w in console
+                var recipient = document.getElementById('recipient');
+                var searchUser = recipient.value;
+
+                console.log(searchUser);
+
+                const formData = new FormData();
+
+                formData.append('searchUser', 'searchUser');
+
+                fetch('https://example.com/profile/avatar', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log('Success:', result);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            })
+        }
+    </script>
 </body>
 
 </html>
