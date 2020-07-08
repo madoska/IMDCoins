@@ -7,7 +7,7 @@ class Transaction
     private $sum;
     private $msg;
     private $recipient;
-    private $searchUser;
+    private $searchName;
 
     public function activationTokens($userID)
     {
@@ -28,13 +28,12 @@ class Transaction
         return $result;
     }
 
-    public function searchUser($searchUser)
+    public function searchName($searchName)
     {
         $pdo = Db::connect();
-        $stmt = $pdo->prepare("SELECT firstname, lastname FROM users WHERE firstname LIKE :searchUser OR lastname LIKE :searchUser");
-        $stmt->bindValue(':searchUser', '%' . $searchUser . '%');
-        $stmt->execute();
-        $result = $stmt->fetch();
+        $stmt = $pdo->prepare("SELECT firstname, lastname FROM users WHERE firstname LIKE :searchName OR lastname LIKE :searchName");
+        $stmt->execute(['searchName' => '%' . $searchName . '%']);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -86,14 +85,14 @@ class Transaction
         return $this;
     }
 
-    public function getSearchUser()
+    public function getsearchName()
     {
-        return $this->searchUser;
+        return $this->searchName;
     }
 
-    public function setSearchUser($searchUser)
+    public function setsearchName($searchName)
     {
-        $this->searchUser = $searchUser;
+        $this->searchName = $searchName;
 
         return $this;
     }

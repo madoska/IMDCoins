@@ -25,38 +25,48 @@ $sum = $saldo->saldo($userID);
     <h1>Welcome <?php echo $name['firstname'] . " " . $name['lastname']; ?></h1>
     <h4>Your saldo is <?php echo $sum; ?></h4>
     <div>
-        <input type="text" name="recipient" onKeyPress="searchResult()" id="recipient" placeholder="find a user">
+        <form action="ajax/searchName.php" method="POST">
+            <input type="text" name="recipient" oninput=searchName(this.value) id="recipient" placeholder="find a user">
+        </form>
     </div>
     <div>
+        Results found:
+        <div>
+            <ul id="results">
+                <li>Name1</li>
+                <li>Name2</li>
+                <li>Name3</li>
+            </ul>
+            <p>
+                <?php
+                $searchName = new Transaction();
+                $string = $searchName->searchName('a');
+                foreach($string as $user){
+                    echo $user['firstname'];
+                }
+                ?>
+            </p>
+        </div>
     </div>
     <div>
         <a href="logout.php">Logout</a>
     </div>
 
     <script>
-        function searchResult() {
-            setTimeout(function() { // timeout functie zorgt ervoor dat er geen delay is tussen keypress en wat er geprint w in console
-                var recipient = document.getElementById('recipient');
-                var searchUser = recipient.value;
+        function searchName(searchName){
+            console.log(searchName);
 
-                console.log(searchUser);
+            fetchSearchName(searchName);
+        }
 
-                const formData = new FormData();
-
-                formData.append('searchUser', 'searchUser');
-
-                fetch('https://example.com/profile/avatar', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        console.log('Success:', result);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+        function fetchSearchName(searchName){
+            fetch('ajax/searchUser.php', {
+                method: 'POST',
+                body: new URLSearchParams('searchName=' + searchName)
             })
+            .then(result => result.text())
+            .then(result => console.log(result))
+            .catch(error => console.error('Error: ' + error))
         }
     </script>
 </body>
