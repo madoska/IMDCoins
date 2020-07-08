@@ -64,7 +64,7 @@ $sum = $saldo->saldo($userID);
                 method: 'POST',
                 body: new URLSearchParams('searchName=' + searchName)
             })
-            .then(result => result.text())
+            .then(result => result.json())
             .then(result => console.log(result))
             .catch(error => console.error('Error: ' + error))
         }
