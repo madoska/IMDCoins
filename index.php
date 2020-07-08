@@ -33,15 +33,12 @@ $sum = $saldo->saldo($userID);
         Results found:
         <div>
             <ul id="results">
-                <li>Name1</li>
-                <li>Name2</li>
-                <li>Name3</li>
             </ul>
             <p>
                 <?php
                 $searchName = new Transaction();
                 $string = $searchName->searchName('a');
-                foreach($string as $user){
+                foreach ($string as $user) {
                     echo $user['firstname'];
                 }
                 ?>
@@ -53,20 +50,31 @@ $sum = $saldo->saldo($userID);
     </div>
 
     <script>
-        function searchName(searchName){
+        function searchName(searchName) {
             console.log(searchName);
 
             fetchSearchName(searchName);
         }
 
-        function fetchSearchName(searchName){
+        function fetchSearchName(searchName) {
             fetch('ajax/searchUser.php', {
-                method: 'POST',
-                body: new URLSearchParams('searchName=' + searchName)
-            })
-            .then(result => result.json())
-            .then(result => console.log(result))
-            .catch(error => console.error('Error: ' + error))
+                    method: 'POST',
+                    body: new URLSearchParams('searchName=' + searchName)
+                })
+                .then(result => result.json())
+                .then(result => viewResults(result))
+                .catch(error => console.error('Error: ' + error))
+        }
+
+        function viewResults(result){
+            const results = document.getElementById("results");
+            results.innerHTML = "";
+
+            for(let i = 0; i < result.length; i++){
+                const li = document.createElement("li");
+                li.innerHTML = result['i'];
+                results.appendChild(li);
+            }
         }
     </script>
 </body>
