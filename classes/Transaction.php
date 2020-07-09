@@ -31,7 +31,7 @@ class Transaction
     public function searchName($searchName)
     {
         $pdo = Db::connect();
-        $stmt = $pdo->prepare("SELECT firstname, lastname FROM users WHERE firstname LIKE :searchName OR lastname LIKE :searchName");
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE firstname LIKE :searchName OR lastname LIKE :searchName");
         $stmt->execute(['searchName' => $searchName . '%']);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
