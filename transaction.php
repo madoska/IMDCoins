@@ -6,8 +6,6 @@ if(isset($_GET['id'])){
     $recipientID = $_GET['id'];
     $recipient = new Transaction();
     $result = $recipient->searchRecipient($recipientID);
-
-    print_r($result);
 }
 
 ?>
@@ -21,5 +19,10 @@ if(isset($_GET['id'])){
 </head>
 <body>
     <h1>Send tokens to <?php echo $result['firstname']; ?></h1>
+
+    <form action="" method="POST" name="transaction">
+        <div><input type="number" name="" id="" placeholder="Select an amount"></div>
+        <div><textarea name="" id="" cols="30" rows="10" placeholder="Leave the recipient a message"></textarea></div>
+    </form>
 </body>
 </html>
