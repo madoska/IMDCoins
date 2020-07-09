@@ -61,9 +61,14 @@ $sum = $saldo->saldo($userID);
             results.innerHTML = "";
 
             for (let i = 0; i < result.length; i++) {
-                const li = document.createElement("li");
-                li.innerHTML = result[i].firstname + " " + result[i].lastname;
-                results.appendChild(li);
+                let href = "transaction.php?id=" + result[i].userID;
+                let name = result[i].firstname + " " + result[i].lastname;
+
+                link = document.createElement('a');
+                link.innerHTML = name;
+                link.setAttribute('title', name);
+                link.setAttribute('href', href);
+                results.appendChild(link);
             }
         }
     </script>
