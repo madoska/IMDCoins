@@ -32,17 +32,7 @@ $sum = $saldo->saldo($userID);
     <div>
         Results found:
         <div>
-            <ul id="results">
-            </ul>
-            <p>
-                <?php
-                $searchName = new Transaction();
-                $string = $searchName->searchName('a');
-                foreach ($string as $user) {
-                    echo $user['firstname'];
-                }
-                ?>
-            </p>
+            <ul id="results"></ul>
         </div>
     </div>
     <div>
@@ -66,13 +56,13 @@ $sum = $saldo->saldo($userID);
                 .catch(error => console.error('Error: ' + error))
         }
 
-        function viewResults(result){
+        function viewResults(result) {
             const results = document.getElementById("results");
             results.innerHTML = "";
 
-            for(let i = 0; i < result.length; i++){
+            for (let i = 0; i < result.length; i++) {
                 const li = document.createElement("li");
-                li.innerHTML = result['i'];
+                li.innerHTML = result[i].firstname + " " + result[i].lastname;
                 results.appendChild(li);
             }
         }
