@@ -37,6 +37,15 @@ class Transaction
         return $result;
     }
 
+    public function searchRecipient($recipient){
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE userID = :userID");
+        $stmt->bindParam(':userID', $recipient);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getUserID()
     {
         return $this->userID;
