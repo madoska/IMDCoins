@@ -42,7 +42,7 @@ class Transaction
         $stmt = $pdo->prepare("SELECT * FROM users WHERE userID = :userID");
         $stmt->bindParam(':userID', $recipient);
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
