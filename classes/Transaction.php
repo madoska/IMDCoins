@@ -37,7 +37,8 @@ class Transaction
         return $result;
     }
 
-    public function searchRecipient($recipient){
+    public function searchRecipient($recipient)
+    {
         $pdo = Db::connect();
         $stmt = $pdo->prepare("SELECT * FROM users WHERE userID = :userID");
         $stmt->bindParam(':userID', $recipient);
@@ -46,9 +47,11 @@ class Transaction
         return $result;
     }
 
-    public function history($userID){
+    public function history($userID)
+    {
         $pdo = Db::connect();
-        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE senderID = :userID OR recipientID = :userID");
+        // use aliases to join user table multiple times
+        $stmt = $pdo->prepare("SELECT transactions.*, sender.firstname AS sender_firstname, sender.lastname AS sender_lastname, recipient.firstname AS recipient_firstname, recipient.lastname AS recipient_lastname FROM transactions INNER JOIN users as sender ON transactions.senderID = sender.userID INNER JOIN users as recipient ON transactions.recipientID = recipient.userID");
         $stmt->bindParam(':userID', $userID);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
