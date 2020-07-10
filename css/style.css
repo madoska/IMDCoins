@@ -60,14 +60,17 @@ label {
     color: black;
 }
 
-#results {
-    padding-right: 0;
+.search {
+    margin-top: 10px;
+}
+
+.listitems {
+    padding-left: 10px;
 }
 
 li {
     list-style-type: none;
     list-style: none;
-    padding: 0;
     padding-bottom: 20px;
     padding-top: 20px;
     border-bottom: 1px solid #EAEAEA;
@@ -84,6 +87,15 @@ li a  {
 li a:hover {
     text-decoration: none;
     color: #4e757f;
+}
+
+li.transItems {
+    color: white;
+    border-bottom: 1px solid #62929E;
+}
+
+li.transItems:last-child {
+    border-bottom: none;
 }
 
 @media (min-width: 768px) {

@@ -10,6 +10,10 @@ $name = $getName->retrieveName($userID);
 $saldo = new Transaction();
 $saldo->setUserID($userID);
 $sum = $saldo->saldo($userID);
+
+$history = new Transaction();
+$history->setUserID($userID);
+$transactions = $history->history($userID);
 ?>
 
 <!DOCTYPE html>
@@ -33,23 +37,26 @@ $sum = $saldo->saldo($userID);
                 <h4>Your saldo is <?php echo $sum; ?> tokens</h4>
                 <div>
                     <form action="ajax/searchName.php" method="POST">
-                        <input type="text" name="recipient" oninput=searchName(this.value) id="recipient" placeholder="Search user">
+                        <input type="text" class="search" name="recipient" oninput=searchName(this.value) id="recipient" placeholder="Search user">
                     </form>
                 </div>
                 <div>
                     <div>
-                        <ul id="results" class="list"></ul>
+                        <ul id="results" class="listitems"></ul>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4 p-0 bg-white h-md-100">
-            <div class="d-md-flex h-md-100 p-5 brandingarea">
+            <div class="h-md-100 p-5 brandingarea">
                 <h2 class="history">History</h2>
-                <div>
-                    <i class="fas fa-sign-out-alt"></i>
-                </div>
+                <ul class="listitems">
+                    <?php
+                    foreach ($transactions as $trans) : ?>
+                        <li class="transItems"><?php echo $trans['senderID']; ?></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         </div>
     </div>
