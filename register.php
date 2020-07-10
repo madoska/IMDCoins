@@ -116,7 +116,7 @@ if (!empty($_POST['register'])) {
                         </div>
 
                         <div class="flex-tiny">
-                            <p class="tiny">Have an account?</p><a href="/login.php" class="login">Sign in</a>
+                            <p class="tiny">Have an account?</p><a href="login.php" class="login">Sign in</a>
                         </div>
                     </form>
                 </div>
