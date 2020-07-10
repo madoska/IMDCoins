@@ -23,6 +23,7 @@ if(isset($_GET['id'])){
     <form action="" method="POST" name="transaction">
         <div><input type="number" name="" id="" placeholder="Select an amount"></div>
         <div><textarea name="" id="" cols="30" rows="10" placeholder="Leave the recipient a message"></textarea></div>
+        <input type="submit" value="Let's go!">
     </form>
 </body>
 </html>
