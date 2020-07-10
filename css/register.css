@@ -1,0 +1,26 @@
+* {
+  font-family: "Lato", sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.left {
+    background-color: #F4D35E;
+    flex-basis: 100%;
+    flex: 1;
+}
+
+.logo {
+    width: 150%;
+}
+
+.sub {
+    color: white;
+}

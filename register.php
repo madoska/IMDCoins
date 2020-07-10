@@ -72,40 +72,51 @@ if (!empty($_POST['register'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/register.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <title>Register</title>
 </head>
 
 <body>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div>
-            <label for="firstname">First name</label>
-            <input type="text" name="firstname" id="firstname">
+    <div class="box">
+        <div class="left">
+            <img class="logo" src="images/logo_white.svg" alt="">
+            <p class="sub">Exchange your IMD tokens!</p>
         </div>
 
-        <div>
-            <label for="lastname">Last name</label>
-            <input type="text" name="lastname" id="lastname">
-        </div>
+        <div class="right">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div>
+                    <label for="firstname">First name</label>
+                    <input type="text" name="firstname" id="firstname">
+                </div>
 
-        <div>
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email">
-        </div>
+                <div>
+                    <label for="lastname">Last name</label>
+                    <input type="text" name="lastname" id="lastname">
+                </div>
 
-        <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
-        </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email">
+                </div>
 
-        <div>
-            <label for="confirmPassword">Confirm password</label>
-            <input type="password" name="confirmPassword" id="confirmPassword">
-        </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+                </div>
 
-        <div>
-            <input type="submit" value="Sign up" name="register" id="register">
+                <div>
+                    <label for="confirmPassword">Confirm password</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword">
+                </div>
+
+                <div>
+                    <input type="submit" value="Sign up" name="register" id="register">
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </body>
 
 </html>
