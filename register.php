@@ -114,7 +114,7 @@ if (!empty($_POST['register'])) {
                         </div>
 
                         <div class="flex">
-                            <input type="submit" class="shadow" value="Sign up" name="register" id="register">
+                            <input type="submit" class="shadow cta" value="Sign up" name="register" id="register">
                         </div>
 
                         <div class="flex-tiny">
