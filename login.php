@@ -1,6 +1,8 @@
 <?php
 include_once(__DIR__ . "/classes/Db.php");
 include_once(__DIR__ . "/classes/User.php");
+session_start();
+session_destroy();
 
 if(!empty($_POST['login'])){
     $validateLogin = new User();

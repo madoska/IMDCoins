@@ -2,6 +2,8 @@
 include_once(__DIR__ . "/classes/Db.php");
 include_once(__DIR__ . "/classes/User.php");
 include_once(__DIR__ . "/classes/Transaction.php");
+session_start();
+session_destroy();
 
 // if register form is submitted and not empty
 if (!empty($_POST['register'])) {
