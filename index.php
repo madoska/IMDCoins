@@ -54,7 +54,12 @@ $transactions = $history->history($userID);
                 <ul class="listitems">
                     <?php
                     foreach ($transactions as $trans) : ?>
-                        <li class="transItems"><?php echo $trans['senderID']; ?></li>
+                        <?php
+                        if ($trans['recipientID'] == $userID) { ?>
+                            <li class="transItems"><?php echo $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?></li>
+                        <?php } else { ?>
+                            <li class="transItems"><?php echo "You sent " . $trans['recipient_firstname'] . " ". $trans['amount'] . " tokens"; ?></li>
+                        <?php } ?>
                     <?php endforeach; ?>
                 </ul>
             </div>
