@@ -18,27 +18,40 @@ $sum = $saldo->saldo($userID);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <title>IMDCurrency</title>
 </head>
 
 <body>
-    <h1>Welcome <?php echo $name['firstname'] . " " . $name['lastname']; ?></h1>
-    <h4>Your saldo is <?php echo $sum; ?></h4>
-    <div>
-        <form action="ajax/searchName.php" method="POST">
-            <input type="text" name="recipient" oninput=searchName(this.value) id="recipient" placeholder="find a user">
-        </form>
-    </div>
-    <div>
-        Results found:
-        <div>
-            <ul id="results"></ul>
+    <div class="d-md-flex h-md-100">
+        <div class="col-md-8 p-0 h-md-100">
+            <div class="text-black h-100 p-5">
+                <h1>Hi, <?php echo $name['firstname']; ?>!</h1>
+                <h4>Your saldo is <?php echo $sum; ?> tokens</h4>
+                <div>
+                    <form action="ajax/searchName.php" method="POST">
+                        <input type="text" name="recipient" oninput=searchName(this.value) id="recipient" placeholder="Search user">
+                    </form>
+                </div>
+                <div>
+                    Results found:
+                    <div>
+                        <ul id="results"></ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div>
-        <a href="logout.php">Logout</a>
+
+        <div class="col-md-4 p-0 bg-white h-md-100">
+            <div class="d-md-flex h-md-100 p-5 brandingarea">
+                <h2 class="history">History</h2>
+                <div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
