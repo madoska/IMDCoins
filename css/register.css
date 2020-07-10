@@ -1,35 +1,60 @@
-* {
-  font-family: "Lato", sans-serif;
-  margin: 0px;
-  padding: 0px;
+.brandingarea {
+    background-color: #f4d35e;
 }
 
-.box {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
+.title {
+    color: #62929E;
+    text-align: right;
+    margin-bottom: 20px;
 }
 
-.left {
-  background-color: #f4d35e;
-  flex-basis: 100%;
-  flex: 1;
+.flex {
+    display: flex;
+    flex-direction: column;
 }
 
-.right {
-  flex: 1;
+input {
+    width: 400px;
+    margin-bottom: 15px;
+    height: 40px;
+    border: none;
+    background-color: #EAEAEA;
+    border-radius: 30px;
+    text-indent: 20px;
 }
 
-.left-content {
-  margin-top: 41%;
-  margin-bottom: 41%;
-  margin-left: 25%;
-  display: flex;
-  flex-direction: column;
+input:focus {
+    outline: none;
 }
 
-.logo {
-  width: 60%;
-  margin-bottom: 15px;
+#register {
+    background-color: #62929E;
+    color: white;
+    font-size: 20px;
+    margin-top: 5px;
 }
+
+.flex-tiny {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tiny {
+    padding-right: 5px;
+}
+
+.login {
+    color: #E65F5C;
+}
+
+label {
+    margin-bottom: 3px;
+}
+
+@media (min-width: 768px) {
+    .h-md-100 { height: 100vh; }
+}
+.btn-round { border-radius: 30px; }
+.bg-indigo { background: indigo; }
+.text-cyan { color: #35bdff; }
