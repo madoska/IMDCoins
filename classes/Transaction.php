@@ -51,7 +51,7 @@ class Transaction
     {
         $pdo = Db::connect();
         // use aliases to join user table multiple times
-        $stmt = $pdo->prepare("SELECT transactions.*, sender.firstname AS sender_firstname, sender.lastname AS sender_lastname, recipient.firstname AS recipient_firstname, recipient.lastname AS recipient_lastname FROM transactions INNER JOIN users as sender ON transactions.senderID = sender.userID INNER JOIN users as recipient ON transactions.recipientID = recipient.userID WHERE senderID = :userID OR recipientID = :userID");
+        $stmt = $pdo->prepare("SELECT transactions.*, sender.firstname AS sender_firstname, sender.lastname AS sender_lastname, recipient.firstname AS recipient_firstname, recipient.lastname AS recipient_lastname FROM transactions INNER JOIN users as sender ON transactions.senderID = sender.userID INNER JOIN users as recipient ON transactions.recipientID = recipient.userID WHERE senderID = :userID OR recipientID = :userID ORDER BY transID DESC");
         $stmt->bindParam(':userID', $userID);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
