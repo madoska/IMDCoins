@@ -46,6 +46,15 @@ class Transaction
         return $result;
     }
 
+    public function history($userID){
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("SELECT * FROM transactions WHERE senderID = :userID OR recipientID = :userID");
+        $stmt->bindParam(':userID', $userID);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getUserID()
     {
         return $this->userID;
