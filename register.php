@@ -72,50 +72,55 @@ if (!empty($_POST['register'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/register.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/register.css">
     <title>Register</title>
 </head>
 
 <body>
-    <div class="box">
-        <div class="left">
-            <div class="left-content">
+    <div class="d-md-flex h-md-100 align-items-center">
+        <div class="col-md-6 p-0 h-md-100 brandingarea">
+            <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
                 <img class="logo" src="images/logo_white.svg" alt="">
             </div>
         </div>
 
-        <div class="right">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                <div>
-                    <label for="firstname">First name</label>
-                    <input type="text" name="firstname" id="firstname">
-                </div>
+        <div class="col-md-6 p-0 bg-white h-md-100 signuparea">
+            <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+                <div class="flex-box">
+                    <h1 class="title">Register</h1>
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <div class="flex">
+                            <input type="text" name="firstname" id="firstname" placeholder="First name">
+                        </div>
 
-                <div>
-                    <label for="lastname">Last name</label>
-                    <input type="text" name="lastname" id="lastname">
-                </div>
+                        <div class="flex">
+                            <input type="text" name="lastname" id="lastname" placeholder="Last name">
+                        </div class="flex">
 
-                <div>
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email">
-                </div>
+                        <div class="flex">
+                            <input type="text" name="email" id="email" placeholder="Email">
+                        </div>
 
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password">
-                </div>
+                        <div class="flex">
+                            <input type="password" name="password" id="password" placeholder="Password">
+                        </div>
 
-                <div>
-                    <label for="confirmPassword">Confirm password</label>
-                    <input type="password" name="confirmPassword" id="confirmPassword">
-                </div>
+                        <div class="flex">
+                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password">
+                        </div>
 
-                <div>
-                    <input type="submit" value="Sign up" name="register" id="register">
+                        <div class="flex">
+                            <input type="submit" class="shadow" value="Sign up" name="register" id="register">
+                        </div>
+
+                        <div class="flex-tiny">
+                            <p class="tiny">Have an account?</p><a href="/login.php" class="login">Sign in</a>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </body>
