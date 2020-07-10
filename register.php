@@ -80,8 +80,9 @@ if (!empty($_POST['register'])) {
 <body>
     <div class="box">
         <div class="left">
-            <img class="logo" src="images/logo_white.svg" alt="">
-            <p class="sub">Exchange your IMD tokens!</p>
+            <div class="left-content">
+                <img class="logo" src="images/logo_white.svg" alt="">
+            </div>
         </div>
 
         <div class="right">
