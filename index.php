@@ -21,7 +21,7 @@ $sum = $saldo->saldo($userID);
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <title>IMDCurrency</title>
 </head>
 
@@ -37,9 +37,8 @@ $sum = $saldo->saldo($userID);
                     </form>
                 </div>
                 <div>
-                    Results found:
                     <div>
-                        <ul id="results"></ul>
+                        <ul id="results" class="list"></ul>
                     </div>
                 </div>
             </div>
@@ -49,6 +48,7 @@ $sum = $saldo->saldo($userID);
             <div class="d-md-flex h-md-100 p-5 brandingarea">
                 <h2 class="history">History</h2>
                 <div>
+                    <i class="fas fa-sign-out-alt"></i>
                 </div>
             </div>
         </div>
@@ -76,14 +76,15 @@ $sum = $saldo->saldo($userID);
             results.innerHTML = "";
 
             for (let i = 0; i < result.length; i++) {
+                let a = document.createElement("a");
+                let li = document.createElement("li");
                 let href = "transaction.php?id=" + result[i].userID;
                 let name = result[i].firstname + " " + result[i].lastname;
 
-                link = document.createElement('a');
-                link.innerHTML = name;
-                link.setAttribute('title', name);
-                link.setAttribute('href', href);
-                results.appendChild(link);
+                a.textContent = name;
+                a.setAttribute('href', href);
+                li.appendChild(a);
+                results.appendChild(li);
             }
         }
     </script>
