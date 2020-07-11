@@ -28,7 +28,8 @@ class Transaction
         return $result;
     }
 
-    public function allUsers($userID){
+    public function allUsers($userID)
+    {
         $pdo = Db::connect();
         $stmt = $pdo->prepare("SELECT * FROM users WHERE userID != :userID");
         $stmt->bindParam(':userID', $userID);
@@ -64,6 +65,19 @@ class Transaction
         $stmt->bindParam(':userID', $userID);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function makeTransfer($userID, $recipient, $sum, $msg)
+    {
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("INSERT INTO transactions (senderID, recipientID, amount, message) VALUES (:senderID, :recipientID, :amount, :message)");
+        $stmt->bindParam(':senderID', $userID);
+        $stmt->bindParam(':recipientID', $recipient);
+        $stmt->bindParam(':amount', $sum);
+        $stmt->bindParam(':message', $msg);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
