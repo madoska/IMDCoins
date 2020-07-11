@@ -28,20 +28,20 @@ $transactions = $history->history($userID);
                 <h1>Transfer receipt</h1>
                 <div class="columns">
                     <ul class="labels">
-                        <li>Transaction date</li>
-                        <li>Sender</li>
-                        <li>Recipient</li>
-                        <li>Amount</li>
-                        <li>Message</li>
+                        <li class="label">Transaction date</li>
+                        <li class="label">Sender</li>
+                        <li class="label">Recipient</li>
+                        <li class="label">Amount</li>
+                        <li class="label">Message</li>
                     </ul>
                     <ul class="variables">
                         <?php foreach($transactions as $trans): ?>
                             <?php if($trans['transID'] == $transID){?>
-                                <li><?php echo $trans['time']; ?></li>
-                                <li><?php echo $trans['sender_firstname'] . " " . $trans['sender_lastname']; ?></li>
-                                <li><?php echo $trans['recipient_firstname'] . " " . $trans['recipient_lastname']; ?></li>
-                                <li><?php echo $trans['amount'] . " tokens"; ?></li>
-                                <li><?php echo $trans['message']; ?></li>
+                                <li class="var"><?php echo $trans['time']; ?></li>
+                                <li class="var"><?php echo $trans['sender_firstname'] . " " . $trans['sender_lastname']; ?></li>
+                                <li class="var"><?php echo $trans['recipient_firstname'] . " " . $trans['recipient_lastname']; ?></li>
+                                <li class="var"><?php echo $trans['amount'] . " tokens"; ?></li>
+                                <li class="var"><?php echo $trans['message']; ?></li>
                             <?php } endforeach; ?>
                     </ul>
                 </div>
