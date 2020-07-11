@@ -106,12 +106,16 @@ li.transItems:last-child {
 }
 
 a.transMore {
-    color: #E65F5C;
+    color: #62929E;
     font-size: 1.5em;
 }
 
 a.transMore:hover {
-    color: #df3430;
+    color: #4e757f;
+}
+
+li.selected {
+    color: #62929E;
 }
 
 @media (min-width: 768px) {
