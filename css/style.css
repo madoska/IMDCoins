@@ -32,6 +32,16 @@ input:focus {
   outline: none;
 }
 
+textarea {
+  width: 400px;
+  margin-bottom: 15px;
+  padding-top: 20px;
+  border: none;
+  background-color: #eaeaea;
+  border-radius: 20px;
+  text-indent: 20px;
+}
+
 .cta {
   background-color: #62929e;
   color: white;
