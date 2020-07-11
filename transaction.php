@@ -32,10 +32,10 @@ $transactions = $history->history($userID);
                 <div class="rows">
                     <h1><a href="index.php" class="return">< Transaction</a></h1>
                     <div class="columns">
-                        <form action="" method="post">
-                        <div><input type="number" name="amount" id="amount" placeholder="Choose an amount"></div>
-                        <div><textarea name="message" id="message" placeholder="Let them know you appreciate them :)" cols="48" rows="10"></textarea></div>
-                        <div><input type="submit" value="Submit" class="cta shadow"></div>
+                        <form action="" method="post" class="transaction-form">
+                            <div><input type="number" name="amount" id="amount" placeholder="Choose an amount"></div>
+                            <div><textarea name="message" id="message" placeholder="Let them know you appreciate them :)" cols="48" rows="10"></textarea></div>
+                            <div><input type="submit" value="Submit" class="cta shadow"></div>
                         </form>
                     </div>
                 </div>
