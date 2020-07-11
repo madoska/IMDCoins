@@ -3,7 +3,6 @@ include_once(__DIR__ . "/inc/session.inc.php");
 include_once(__DIR__ . "/classes/Transaction.php");
 
 $getName = new User();
-$userID = $_SESSION['user'];
 $getName->setUserID($userID);
 $name = $getName->retrieveName($userID);
 
@@ -55,9 +54,9 @@ $transactions = $history->history($userID);
                     foreach ($transactions as $trans) : ?>
                         <?php
                         if ($trans['recipientID'] == $userID) { ?>
-                            <li class="transItems"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?><a class="transMore" href="details.php?id=<?php echo $trans['transID'];?>" >+</a></li>
+                            <li class="transItems"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?><a class="transMore" href="details.php?id=<?php echo $trans['transID'];?>" >></a></li>
                         <?php } else { ?>
-                            <li class="transItems"><?php echo "You sent " . $trans['recipient_firstname'] . " ". $trans['amount'] . " tokens"; ?><a class="transMore" href="details.php?id=<?php echo $trans['transID'];?>" >+</a></li>
+                            <li class="transItems"><?php echo "You sent " . $trans['recipient_firstname'] . " ". $trans['amount'] . " tokens"; ?><a class="transMore" href="details.php?id=<?php echo $trans['transID'];?>" >></a></li>
                         <?php } ?>
                     <?php endforeach; ?>
                 </ul>
