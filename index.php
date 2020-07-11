@@ -55,9 +55,9 @@ $transactions = $history->history($userID);
                     foreach ($transactions as $trans) : ?>
                         <?php
                         if ($trans['recipientID'] == $userID) { ?>
-                            <li class="transItems"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?><a class="transMore" href="details.php?id=<?php echo $trans['transID'];?>" >More</a></li>
+                            <li class="transItems"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?><a class="transMore" href="details.php?id=<?php echo $trans['transID'];?>" >+</a></li>
                         <?php } else { ?>
-                            <li class="transItems"><?php echo "You sent " . $trans['recipient_firstname'] . " ". $trans['amount'] . " tokens"; ?><a class="transMore" href="details.php?id=<?php echo $trans['transID'];?>" >More</a></li>
+                            <li class="transItems"><?php echo "You sent " . $trans['recipient_firstname'] . " ". $trans['amount'] . " tokens"; ?><a class="transMore" href="details.php?id=<?php echo $trans['transID'];?>" >+</a></li>
                         <?php } ?>
                     <?php endforeach; ?>
                 </ul>
