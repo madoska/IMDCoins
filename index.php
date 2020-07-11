@@ -10,6 +10,10 @@ $saldo = new Transaction();
 $saldo->setUserID($userID);
 $sum = $saldo->saldo($userID);
 
+$allUsers = new Transaction();
+$allUsers->setUserID($userID);
+$users = $allUsers->allUsers($userID);
+
 $history = new Transaction();
 $history->setUserID($userID);
 $transactions = $history->history($userID);
@@ -40,7 +44,11 @@ $transactions = $history->history($userID);
                 </div>
                 <div>
                     <div>
-                        <ul id="results" class="listitems"></ul>
+                        <ul id="results" class="listitems">
+                            <?php foreach($users as $user): ?>
+                                <li><a href="transaction.php?id=<?php echo $user['userID']; ?>"><?php echo $user['firstname'] . " " . $user['lastname']; ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
                     </div>
                 </div>
             </div>

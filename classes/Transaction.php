@@ -28,6 +28,15 @@ class Transaction
         return $result;
     }
 
+    public function allUsers($userID){
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE userID != :userID");
+        $stmt->bindParam(':userID', $userID);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function searchName($searchName)
     {
         $pdo = Db::connect();
