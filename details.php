@@ -25,7 +25,9 @@ $transactions = $history->history($userID);
     <div class="d-md-flex h-md-100">
         <div class="col-md-8 p-0 h-md-100">
             <div class="text-black h-100 p-5">
-                <h1>Transfer receipt</h1>
+                <div class="rows">
+                    <h1><a href="index.php" class="return">< Receipt</a></h1>
+                </div>
                 <div class="columns">
                     <ul class="labels">
                         <li class="label">Transaction date</li>
@@ -35,14 +37,15 @@ $transactions = $history->history($userID);
                         <li class="label">Message</li>
                     </ul>
                     <ul class="variables">
-                        <?php foreach($transactions as $trans): ?>
-                            <?php if($trans['transID'] == $transID){?>
+                        <?php foreach ($transactions as $trans) : ?>
+                            <?php if ($trans['transID'] == $transID) { ?>
                                 <li class="var"><?php echo $trans['time']; ?></li>
                                 <li class="var"><?php echo $trans['sender_firstname'] . " " . $trans['sender_lastname']; ?></li>
                                 <li class="var"><?php echo $trans['recipient_firstname'] . " " . $trans['recipient_lastname']; ?></li>
                                 <li class="var"><?php echo $trans['amount'] . " tokens"; ?></li>
                                 <li class="var"><?php echo $trans['message']; ?></li>
-                            <?php } endforeach; ?>
+                        <?php }
+                        endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -56,15 +59,9 @@ $transactions = $history->history($userID);
                     foreach ($transactions as $trans) : ?>
                         <?php
                         if ($trans['recipientID'] == $userID) { ?>
-                            <li class="transItems <?php if ($transID == $trans['transID']) {
-                                                        echo "selected";
-                                                    } else {
-                                                    }; ?>"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?><a class="transMore" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
+                            <li class="transItems"><a class="transLink <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?></a><a class="transMore <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
                         <?php } else { ?>
-                            <li class="transItems <?php if ($transID == $trans['transID']) {
-                                                        echo "selected";
-                                                    } else {
-                                                    }; ?>"><?php echo "You sent " . $trans['recipient_firstname'] . " " . $trans['amount'] . " tokens"; ?><a class="transMore" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
+                            <li class="transItems"><a class="transLink <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo "You sent " . $trans['recipient_firstname'] . " " . $trans['amount'] . " tokens"; ?></a><a class="transMore <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
                         <?php } ?>
                     <?php endforeach; ?>
                 </ul>
