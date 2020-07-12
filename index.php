@@ -10,6 +10,11 @@ $saldo = new Transaction();
 $saldo->setUserID($userID);
 $sum = $saldo->saldo($userID);
 
+$sums = new Transaction();
+$sums->setUserID($userID);
+$gains = $sums->gains($userID);
+$losses = $sums->losses($userID);
+
 $allUsers = new Transaction();
 $allUsers->setUserID($userID);
 $users = $allUsers->allUsers($userID);
@@ -36,7 +41,7 @@ $transactions = $history->history($userID);
         <div class="col-md-8 p-0 h-md-100">
             <div class="text-black h-100 p-5">
                 <h1>Hi, <?php echo $name['firstname']; ?>!</h1>
-                <h4>Your saldo is <?php echo $sum; ?> tokens</h4>
+                <h4>Your saldo is <?php echo $gains-$losses; ?> tokens</h4>
                 <div>
                     <form action="ajax/searchName.php" method="POST">
                         <input type="text" class="search" name="recipient" oninput=searchName(this.value) id="recipient" placeholder="Search user">

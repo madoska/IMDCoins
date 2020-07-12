@@ -81,6 +81,24 @@ class Transaction
         return $result;
     }
 
+    public function gains($userID){
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("SELECT SUM(amount) FROM transactions WHERE recipientID = :userID");
+        $stmt->bindParam(':userID', $userID);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
+        return $result;
+    }
+
+    public function losses($userID){
+        $pdo = Db::connect();
+        $stmt = $pdo->prepare("SELECT SUM(amount) FROM transactions WHERE senderID = :userID");
+        $stmt->bindParam(':userID', $userID);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
+        return $result;
+    }
+
     public function getUserID()
     {
         return $this->userID;
