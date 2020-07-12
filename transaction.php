@@ -8,6 +8,10 @@ if (isset($_GET['id'])) {
     $result = $recipient->searchRecipient($recipientID);
 }
 
+$saldo = new Transaction();
+$saldo->setUserID($userID);
+$sum = $saldo->saldo($userID);
+
 $history = new Transaction();
 $history->setUserID($userID);
 $transactions = $history->history($userID);
@@ -30,14 +34,15 @@ $transactions = $history->history($userID);
         <div class="col-md-8 p-0 h-md-100">
             <div class="text-black h-100 p-5">
                 <div class="rows">
-                    <h1><a href="index.php" class="return">< Transaction</a></h1>
-                    <div class="columns">
-                        <form action="" method="post" class="transaction-form">
-                            <div><input type="number" name="amount" id="amount" placeholder="Choose an amount"></div>
-                            <div><textarea name="message" id="message" placeholder="Let them know you appreciate them :)" cols="48" rows="10"></textarea></div>
-                            <div><input type="submit" value="Submit" class="cta shadow"></div>
-                        </form>
-                    </div>
+                    <h1><a href="index.php" class="return">
+                            < Transaction</a> </h1> <h4>Your saldo is <?php echo $sum; ?> tokens</h4>
+                                <div class="columns">
+                                    <form action="" method="post" class="transaction-form">
+                                        <div><input type="number" name="amount" id="amount" placeholder="Choose an amount"></div>
+                                        <div><textarea name="message" id="message" placeholder="Let them know you appreciate them :)" cols="48" rows="10"></textarea></div>
+                                        <div><input type="submit" value="Submit" class="cta shadow"></div>
+                                    </form>
+                                </div>
                 </div>
             </div>
         </div>
