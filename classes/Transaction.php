@@ -71,13 +71,12 @@ class Transaction
     public function makeTransfer($userID, $recipient, $sum, $msg)
     {
         $pdo = Db::connect();
-        $stmt = $pdo->prepare("INSERT INTO transactions (senderID, recipientID, amount, message) VALUES (:senderID, :recipientID, :amount, :message)");
-        $stmt->bindParam(':senderID', $userID);
+        $stmt = $pdo->prepare("INSERT INTO transactions (senderID, recipientID, amount, message) VALUES (:userID, :recipientID, :amount, :message)");
+        $stmt->bindParam(':userID', $userID);
         $stmt->bindParam(':recipientID', $recipient);
         $stmt->bindParam(':amount', $sum);
         $stmt->bindParam(':message', $msg);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->execute();
         return $result;
     }
 
