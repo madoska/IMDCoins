@@ -8,13 +8,31 @@ if (isset($_GET['id'])) {
     $result = $recipient->searchRecipient($recipientID);
 }
 
-$saldo = new Transaction();
-$saldo->setUserID($userID);
-$sum = $saldo->saldo($userID);
+$sums = new Transaction();
+$sums->setUserID($userID);
+$gains = $sums->gains($userID);
+$losses = $sums->losses($userID);
+$saldo = $gains - $losses;
 
 $history = new Transaction();
 $history->setUserID($userID);
 $transactions = $history->history($userID);
+
+if(!empty($_POST['submit'])){
+    $newTransaction = new Transaction();
+    $amount = $_POST['amount'];
+    $message = $_POST['message'];
+    echo $recipientID;
+    
+    if($saldo < $amount){
+        echo "You don't have enough tokens.";
+    } else if ($amount < 1){
+        echo "Amount should be at least 1 token.";
+    } else {
+        $transaction = $newTransaction->makeTransfer($userID, $recipientID, $amount, $message);
+        echo "Transfer complete";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,15 +52,15 @@ $transactions = $history->history($userID);
         <div class="col-md-8 p-0 h-md-100">
             <div class="text-black h-100 p-5">
                 <div class="rows">
-                    <h1><a href="index.php" class="return">
-                            < Transaction</a> </h1> <h4>Your saldo is <?php echo $sum; ?> tokens</h4>
-                                <div class="columns">
-                                    <form action="" method="post" class="transaction-form">
-                                        <div><input type="number" name="amount" id="amount" placeholder="Choose an amount"></div>
-                                        <div><textarea name="message" id="message" placeholder="Let them know you appreciate them :)" cols="48" rows="10"></textarea></div>
-                                        <div><input type="submit" value="Submit" class="cta shadow"></div>
-                                    </form>
-                                </div>
+                    <h1><a href="index.php" class="return">< Transaction</a> </h1>
+                    <h4>Your saldo is <?php echo $saldo; ?> tokens</h4>
+                        <div class="columns">
+                            <form action="" method="post" class="transaction-form">
+                                <div><input type="number" name="amount" id="amount" placeholder="Choose an amount"></div>
+                                <div><textarea name="message" id="message" placeholder="Let them know you appreciate them :)" cols="48" rows="10"></textarea></div>
+                                <div><input type="submit" value="Submit" class="cta shadow" id="submit" name="submit"></div>
+                            </form>
+                        </div>
                 </div>
             </div>
         </div>
@@ -55,21 +73,9 @@ $transactions = $history->history($userID);
                     foreach ($transactions as $trans) : ?>
                         <?php
                         if ($trans['recipientID'] == $userID) { ?>
-                            <li class="transItems"><a class="transLink <?php if ($transID == $trans['transID']) {
-                                                                            echo "selected";
-                                                                        } else {
-                                                                        }; ?>" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?></a><a class="transMore <?php if ($transID == $trans['transID']) {
-                                                                                                                                                                                                                                                            echo "selected";
-                                                                                                                                                                                                                                                        } else {
-                                                                                                                                                                                                                                                        }; ?>" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
+                            <li class="transItems"><a class="transLink <?php if ($transID == $trans['transID']) { echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?></a><a class="transMore <?php if ($transID == $trans['transID']) { echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
                         <?php } else { ?>
-                            <li class="transItems"><a class="transLink <?php if ($transID == $trans['transID']) {
-                                                                            echo "selected";
-                                                                        } else {
-                                                                        }; ?>" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo "You sent " . $trans['recipient_firstname'] . " " . $trans['amount'] . " tokens"; ?></a><a class="transMore <?php if ($transID == $trans['transID']) {
-                                                                                                                                                                                                                                                                    echo "selected";
-                                                                                                                                                                                                                                                                } else {
-                                                                                                                                                                                                                                                                }; ?>" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
+                            <li class="transItems"><a class="transLink <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo "You sent " . $trans['recipient_firstname'] . " " . $trans['amount'] . " tokens"; ?></a><a class="transMore <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
                         <?php } ?>
                     <?php endforeach; ?>
                 </ul>
