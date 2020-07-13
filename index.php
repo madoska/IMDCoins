@@ -136,7 +136,7 @@ $transactions = $history->history($userID);
             .then(response => response.json())
             .then(result => {
             saldo.innerHTML = "Your saldo is " + result + " tokens";
-            console.log(result);
+            console.log(result)
             })
             .catch(error => {
             console.error('Error:', error);
