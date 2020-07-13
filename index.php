@@ -117,7 +117,7 @@ $transactions = $history->history($userID);
         window.onload = timer;
 
         function timer(){
-            setTimeout(update, 3000)
+            setInterval(update, 3000)
         }
 
         function update() {
@@ -135,7 +135,8 @@ $transactions = $history->history($userID);
 
             .then(response => response.json())
             .then(result => {
-            console.log('Success:', result);
+            saldo.innerHTML = "Your saldo is " + result + " tokens";
+            console.log(result);
             })
             .catch(error => {
             console.error('Error:', error);
