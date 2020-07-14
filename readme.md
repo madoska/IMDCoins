@@ -1,6 +1,6 @@
 # Virtual Currency
 **PHP 2020 2de zit: Virtual Currency**
-> [imdcoins.site](imdcoins.site)  
+> [imdcoins.site](http://www.imdcoins.site/login.php)  
 > [trello board](https://trello.com/b/cFIe1Rzx/php-virtual-currency)  
 > Medina Dadurgova
 
