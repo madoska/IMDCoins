@@ -175,6 +175,7 @@ a.selected:hover {
 
 a.logout-btn {
   color: #e65f5c;
+  font-weight: bold;
 }
 
 a.logout-btn:hover {
