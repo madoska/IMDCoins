@@ -12,7 +12,6 @@ $sums = new Transaction();
 $sums->setUserID($userID);
 $gains = $sums->gains($userID);
 $losses = $sums->losses($userID);
-$saldo = $gains - $losses;
 
 $history = new Transaction();
 $history->setUserID($userID);
@@ -54,7 +53,8 @@ if(!empty($_POST['submit'])){
             <div class="text-black h-100 p-5">
                 <div class="rows">
                     <h1><a href="index.php" class="return">< Transaction</a> </h1>
-                    <h4>Your saldo is <?php echo $saldo; ?> tokens</h4>
+                    <h4 id="saldo">Your saldo is <?php echo $gains-$losses; ?> tokens</h4>
+                    <input type="hidden" id="hidden" name="hidden" value="<?php echo $userID; ?>">
                         <div class="columns">
                             <form action="" method="post" class="transaction-form">
                                 <div><div class='alert alert-danger' <?php if($alert != 1){ echo "style='display:none'"; } else {} ?>><strong>Error!</strong> You don't have enough tokens to complete this transfer 😔</div></div>
@@ -87,6 +87,40 @@ if(!empty($_POST['submit'])){
         </div>
     </div>
 
+    <script>
+        const saldo = document.getElementById('saldo');
+
+        window.onload = timer;
+
+        function timer(){
+            setInterval(() => {
+                update()
+            }, 3000);
+        }
+
+        function update() {
+            const userID = document.getElementById("hidden").value;
+
+            console.log(userID);
+
+            let formData = new FormData();
+            formData.append('userID', userID);
+
+            fetch('ajax/updateSaldo.php', {
+                method: 'POST',
+                body: formData
+            })
+
+            .then(response => response.json())
+            .then(result => {
+                    console.log(result);
+                    saldo.innerHTML = "Your saldo is " + result + " tokens"
+            })
+            .catch(error => {
+            console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
 
 </html>
