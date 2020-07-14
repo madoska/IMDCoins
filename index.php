@@ -114,7 +114,13 @@ $transactions = $history->history($userID);
 
         const saldo = document.getElementById('saldo');
 
-        window.onload = update;
+        window.onload = timer;
+
+        function timer(){
+            setInterval(() => {
+                update()
+            }, 3000);
+        }
 
         function update() {
             const userID = document.getElementById("hidden").value;
@@ -131,11 +137,8 @@ $transactions = $history->history($userID);
 
             .then(response => response.json())
             .then(result => {
-                setInterval(() => {
-                    console.log("Your saldo is " + result + " tokens");
+                    console.log(result);
                     saldo.innerHTML = "Your saldo is " + result + " tokens"
-                }, 3000);
-            console.log(result)
             })
             .catch(error => {
             console.error('Error:', error);
