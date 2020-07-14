@@ -41,8 +41,8 @@ $transactions = $history->history($userID);
         <div class="col-md-8 p-0 h-md-100">
             <div class="text-black h-100 p-5">
                 <h1>Hi, <?php echo $name['firstname']; ?>!</h1>
-                <input type="hidden" id="hidden" name="hidden" value="<?php echo $userID; ?>">
                 <h4 id="saldo">Your saldo is <?php echo $gains-$losses; ?> tokens</h4>
+                <input type="hidden" id="hidden" name="hidden" value="<?php echo $userID; ?>">
                 <div>
                     <form action="ajax/searchName.php" method="POST">
                         <input type="text" class="search" name="recipient" oninput=searchName(this.value) id="recipient" placeholder="Search user">
@@ -112,13 +112,9 @@ $transactions = $history->history($userID);
             }
         }
 
-        const saldo = document.querySelectorAll('#saldo');
+        const saldo = document.getElementById('saldo');
 
-        window.onload = timer;
-
-        function timer(){
-            setInterval(update, 3000)
-        }
+        window.onload = update;
 
         function update() {
             const userID = document.getElementById("hidden").value;
@@ -135,7 +131,10 @@ $transactions = $history->history($userID);
 
             .then(response => response.json())
             .then(result => {
-            saldo.innerHTML = "Your saldo is " + result + " tokens";
+                setInterval(() => {
+                    console.log("Your saldo is " + result + " tokens");
+                    saldo.innerHTML = "Your saldo is " + result + " tokens"
+                }, 3000);
             console.log(result)
             })
             .catch(error => {
