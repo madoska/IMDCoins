@@ -4,5 +4,5 @@
 
 ## Checklist
 ### Frontend
-☒ Je kiest zelf een gepaste layout 
+☒ Je kiest zelf een gepaste layout\
 ☒ Gebruik van CSS frameworks (tailwind, **bootstrap**, ... ) is toegestaan
