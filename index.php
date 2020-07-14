@@ -33,6 +33,7 @@ $transactions = $history->history($userID);
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <title>Coins</title>
 </head>
 
@@ -40,7 +41,10 @@ $transactions = $history->history($userID);
     <div class="d-md-flex h-md-100">
         <div class="col-md-8 p-0 h-md-100">
             <div class="text-black h-100 p-5">
+                <div class="header">
                 <h1>Hi, <?php echo $name['firstname']; ?>!</h1>
+                <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-out"></span><a class="logout-btn" href="logout.php"> Log out</a></button>
+                </div>
                 <h4 id="saldo">Your saldo is <?php echo $gains-$losses; ?> tokens</h4>
                 <input type="hidden" id="hidden" name="hidden" value="<?php echo $userID; ?>">
                 <div>
