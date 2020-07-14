@@ -73,7 +73,7 @@ if(!empty($_POST['submit'])){
         <div class="col-md-4 p-0 bg-white h-md-100">
             <div class="h-md-100 p-5 brandingarea">
                 <h2 class="history">History</h2>
-                <ul class="listitems">
+                <ul id="listitems">
                     <?php
                     foreach ($transactions as $trans) : ?>
                         <?php
@@ -97,13 +97,16 @@ if(!empty($_POST['submit'])){
             setInterval(() => {
                 update()
             }, 3000);
+
+            setInterval(() => {
+                updateHistory()
+            }, 3000);
         }
 
+        const userID = document.getElementById("hidden").value;
+        console.log(userID);
+
         function update() {
-            const userID = document.getElementById("hidden").value;
-
-            console.log(userID);
-
             let formData = new FormData();
             formData.append('userID', userID);
 
@@ -120,6 +123,55 @@ if(!empty($_POST['submit'])){
             .catch(error => {
             console.error('Error:', error);
             });
+        }
+
+        function updateHistory(){
+            let formData = new FormData();
+            formData.append('userID', userID);
+
+            fetch('ajax/fetchHistory.php', {
+                method: 'POST',
+                body: formData
+            })
+
+            .then(response => response.json())
+            .then(result => viewHistory(result))
+            .catch(error => {
+                console.log('Error: ', error);
+            });
+        }
+
+        function viewHistory(result){
+            const history = document.getElementById("listitems");
+            listitems.innerHTML = "";
+
+            for(let i = 0; i < result.length; i++){
+                if(result[i].senderID == userID){
+                    let a = document.createElement("a");
+                    let li = document.createElement("li");
+                    let href = "details.php?id=" + result[i].transID;
+                    let title = "You sent " + result[i].recipient_firstname + " " + result[i].amount + " tokens.";
+
+                    li.classList.add("transItems");
+                    a.classList.add("transLink");
+                    a.classList.add("selected");
+
+                    a.textContext = title;
+                    a.setAttribute('href', href);
+                    li.appendChild(a);
+                    history.appendChild(li);
+                } else {
+                    let a = document.createElement("a");
+                    let li = document.createElement("li");
+                    let href = "details.php?id=" + result[i].transID;
+                    let title = result[i].sender_firstname + " sent you " + result[i].amount + " tokens.";
+
+                    a.textContext = title;
+                    a.setAttribute('href', href);
+                    li.appendChild(a);
+                    history.appendChild(li);
+                }
+            }
         }
     </script>
 </body>
