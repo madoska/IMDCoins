@@ -61,7 +61,7 @@ $transactions = $history->history($userID);
         </div>
 
         <div class="col-md-4 p-0 bg-white h-md-100">
-            <div class="p-5 brandingarea">
+            <div class="h-md-100 p-5 brandingarea">
                 <h2 class="history">History</h2>
                 <ul class="listitems">
                     <?php
