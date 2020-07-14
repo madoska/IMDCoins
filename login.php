@@ -4,6 +4,8 @@ include_once(__DIR__ . "/classes/User.php");
 session_start();
 session_destroy();
 
+$alert = 0;
+
 if (!empty($_POST['login'])) {
     $validateLogin = new User();
     $email = $_POST['email'];
@@ -17,6 +19,8 @@ if (!empty($_POST['login'])) {
         $userID = $validateLogin->userID($email);
         $_SESSION['user'] = $userID;
         header("Location: index.php");
+    } else {
+        $alert = 1;
     }
 }
 ?>
@@ -45,6 +49,7 @@ if (!empty($_POST['login'])) {
             <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
                 <div class="flex-box">
                     <h1 class="title">Login</h1>
+                    <div class='alert alert-danger' <?php if($alert != 1){ echo "style='display:none'"; } else {} ?>>Incorrect login data. Please try again.</div>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div>
                             <input type="text" name="email" id="email" placeholder="Email">
