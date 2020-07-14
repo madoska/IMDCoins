@@ -30,7 +30,7 @@ Commit regelmatig, GIT is je bewijs van opgeleverd werk. Als je niet correct met
 - Moet minstens 5 karakters lang zijn
 - Kunnen aanloggen
 - Kunnen uitloggen
-- Krijgen na registratie automatisch 10 tokens op hun rekening
+- Krijgen na registratie automatisch 10 tokens op hun rekening\
 **Transfers**
 - Virtueel geld sturen kan naar een andere gebruiker op volgende manier
 - Je selecteert een gebruiker
