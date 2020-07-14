@@ -5,65 +5,76 @@ include_once(__DIR__ . "/classes/Transaction.php");
 session_start();
 session_destroy();
 
+$alert = 0;
+
 // if register form is submitted and not empty
 if (!empty($_POST['register'])) {
-    // check if email is filled out
-    if (!empty($_POST['email'])) {
-        // check for thomas more email
-        $verifyEmail = new User();
-        $email = $_POST['email'];
-        $verifyEmail->setEmail($email);
-        $resultEmail = $verifyEmail->validateEmail($email);
+    if(count(array_filter($_POST))==count($_POST)){
+        // check if email is filled out
+        if (!empty($_POST['email'])) {
+            // check for thomas more email
+            $verifyEmail = new User();
+            $email = $_POST['email'];
+            $verifyEmail->setEmail($email);
+            $resultEmail = $verifyEmail->validateEmail($email);
 
-        // if thomas more email = ok
-        if ($resultEmail == 1) {
-            // check if email is not taken
-            $emailAvailable = new User();
-            $emailAvailable->setEmail($email);
-            $available = $emailAvailable->emailAvailable($email);
-            if ($available == 1) {
-                // check if password and verifypassword are the same
-                if (!empty($_POST['password']) && $_POST['password'] === $_POST['confirmPassword']) {
-                    //check if password length is ok
-                    $verifyPassword = new User();
-                    $password = $_POST['password'];
-                    $verifyPassword->setPassword($password);
-                    $resultPassword = $verifyPassword->validatePassword($password);
-
-                    if ($resultPassword == 1) {
-                        // register the user
-                        $user = new User();
-                        $firstname = $_POST['firstname'];
-                        $lastname = $_POST['lastname'];
-                        $email = $_POST['email'];
+            // if thomas more email = ok
+            if ($resultEmail == 1) {
+                // check if email is not taken
+                $emailAvailable = new User();
+                $emailAvailable->setEmail($email);
+                $available = $emailAvailable->emailAvailable($email);
+                if ($available == 1) {
+                    // check if password and verifypassword are the same
+                    if (!empty($_POST['password']) && $_POST['password'] === $_POST['confirmPassword']) {
+                        //check if password length is ok
+                        $verifyPassword = new User();
                         $password = $_POST['password'];
-                        $user->setFirstname($firstname);
-                        $user->setLastname($lastname);
-                        $user->setEmail($email);
-                        $user->setPassword($password);
-                        $register = $user->register($email, $password, $firstname, $lastname);
+                        $verifyPassword->setPassword($password);
+                        $resultPassword = $verifyPassword->validatePassword($password);
 
-                        // start a session for the currently logged in user
-                        session_start();
-                        $userID = $user->userID($email);
-                        $_SESSION['user'] = $userID;
-                        $tokens = new Transaction();
-                        $tokens->setUserID($userID);
-                        $activationTokens = $tokens->activationTokens($userID);
-                        echo "Tokens sent.";
-                        header("Location: index.php");
+                        if ($resultPassword == 1) {
+                            // register the user
+                            $user = new User();
+                            $firstname = $_POST['firstname'];
+                            $lastname = $_POST['lastname'];
+                            $email = $_POST['email'];
+                            $password = $_POST['password'];
+                            $user->setFirstname($firstname);
+                            $user->setLastname($lastname);
+                            $user->setEmail($email);
+                            $user->setPassword($password);
+                            $register = $user->register($email, $password, $firstname, $lastname);
+
+                            // start a session for the currently logged in user
+                            session_start();
+                            $userID = $user->userID($email);
+                            $_SESSION['user'] = $userID;
+                            $tokens = new Transaction();
+                            $tokens->setUserID($userID);
+                            $activationTokens = $tokens->activationTokens($userID);
+                            echo "Tokens sent.";
+                            header("Location: index.php");
+                        } else {
+                            echo "Password too short.";
+                            $alert = 5;
+                        }
                     } else {
-                        echo "Password too short.";
+                        echo "Password doesn't match.";
+                        $alert = 4;
                     }
                 } else {
-                    echo "Password doesn't match.";
+                    echo "Email taken.";
+                    $alert = 3;
                 }
             } else {
-                echo "Email taken.";
+                echo "Only Thomas More emails please.";
+                $alert = 2;
             }
-        } else {
-            echo "Only Thomas More emails please.";
         }
+    } else {
+        echo "Fill all fields out please.";
+        $alert = 1;
     }
 }
 ?>
@@ -92,6 +103,12 @@ if (!empty($_POST['register'])) {
             <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
                 <div class="flex-box">
                     <h1 class="title">Register</h1>
+                    <div class='alert alert-danger' <?php if($alert != 1){ echo "style='display:none'"; } else {} ?>>Fill out all field please.</div>
+                    <div class='alert alert-danger' <?php if($alert != 2){ echo "style='display:none'"; } else {} ?>>Only Thomas More student email allowed.</div>
+                    <div class='alert alert-danger' <?php if($alert != 3){ echo "style='display:none'"; } else {} ?>>Email taken.</div>
+                    <div class='alert alert-danger' <?php if($alert != 4){ echo "style='display:none'"; } else {} ?>>Passwords don't match.</div>
+                    <div class='alert alert-danger' <?php if($alert != 5){ echo "style='display:none'"; } else {} ?>>Password too short.</div>
+
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="flex">
                             <input type="text" name="firstname" id="firstname" placeholder="First name">
