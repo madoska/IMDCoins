@@ -30,6 +30,7 @@ if(!empty($_POST['submit'])){
     } else if ($amount < 1){
         $alert = 2;
     } else {
+        $transaction = $newTransaction->makeTransfer($userID, $recipientID, $amount, $message);
         $alert = 3;
     }
 }
