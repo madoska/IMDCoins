@@ -22,15 +22,20 @@ if(!empty($_POST['submit'])){
     $newTransaction = new Transaction();
     $amount = $_POST['amount'];
     $message = $_POST['message'];
-    echo $recipientID;
     
     if($saldo < $amount){
-        echo "You don't have enough tokens.";
+        echo "<div class='alert alert-danger'>
+            <strong>Error!</strong> You don't have enough tokens to complete this transfer 😔
+             </div>";
     } else if ($amount < 1){
-        echo "Amount should be at least 1 token.";
+        echo "<div class='alert alert-danger'>
+            <strong>Error!</strong> Ha.. very funny 😐 Transfer at least 1 token.
+             </div>";
     } else {
         $transaction = $newTransaction->makeTransfer($userID, $recipientID, $amount, $message);
-        echo "Transfer complete";
+        echo "<div class='alert alert-success'>
+        <strong>Success!</strong> Transfer complete 🤑
+      </div>";
     }
 }
 ?>
