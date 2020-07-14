@@ -18,24 +18,19 @@ $history = new Transaction();
 $history->setUserID($userID);
 $transactions = $history->history($userID);
 
+$alert = 0;
+
 if(!empty($_POST['submit'])){
     $newTransaction = new Transaction();
     $amount = $_POST['amount'];
     $message = $_POST['message'];
     
     if($saldo < $amount){
-        echo "<div class='alert alert-danger'>
-            <strong>Error!</strong> You don't have enough tokens to complete this transfer 😔
-             </div>";
+        $alert = 1;
     } else if ($amount < 1){
-        echo "<div class='alert alert-danger'>
-            <strong>Error!</strong> Ha.. very funny 😐 Transfer at least 1 token.
-             </div>";
+        $alert = 2;
     } else {
-        $transaction = $newTransaction->makeTransfer($userID, $recipientID, $amount, $message);
-        echo "<div class='alert alert-success'>
-        <strong>Success!</strong> Transfer complete 🤑
-      </div>";
+        $alert = 3;
     }
 }
 ?>
@@ -61,6 +56,9 @@ if(!empty($_POST['submit'])){
                     <h4>Your saldo is <?php echo $saldo; ?> tokens</h4>
                         <div class="columns">
                             <form action="" method="post" class="transaction-form">
+                                <div><div class='alert alert-danger' <?php if($alert != 1){ echo "style='display:none'"; } else {} ?>><strong>Error!</strong> You don't have enough tokens to complete this transfer 😔</div></div>
+                                <div class=""><div class='alert alert-danger' <?php if($alert != 2){ echo "style='display:none'"; } else {} ?>><strong>Error!</strong> Amount too low; must be at least 1 token.</div></div>
+                                <div><div class='alert alert-success' <?php if($alert != 3){ echo "style='display:none'"; } else {} ?>><strong>Success!</strong> Transfer complete 🤑</div></div>
                                 <div><input type="number" name="amount" id="amount" placeholder="Choose an amount"></div>
                                 <div><textarea name="message" id="message" placeholder="Let them know you appreciate them :)" cols="48" rows="10"></textarea></div>
                                 <div><input type="submit" value="Submit" class="cta shadow" id="submit" name="submit"></div>
@@ -87,6 +85,7 @@ if(!empty($_POST['submit'])){
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
