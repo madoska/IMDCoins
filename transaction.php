@@ -12,6 +12,7 @@ $sums = new Transaction();
 $sums->setUserID($userID);
 $gains = $sums->gains($userID);
 $losses = $sums->losses($userID);
+$saldo = $gains-$losses;
 
 $history = new Transaction();
 $history->setUserID($userID);
