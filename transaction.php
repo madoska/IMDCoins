@@ -143,7 +143,7 @@ if(!empty($_POST['submit'])){
 
         function viewHistory(result){
             const history = document.getElementById("listitems");
-            listitems.innerHTML = "";
+            history.innerHTML = "";
 
             for(let i = 0; i < result.length; i++){
                 if(result[i].senderID == userID){
@@ -154,9 +154,8 @@ if(!empty($_POST['submit'])){
 
                     li.classList.add("transItems");
                     a.classList.add("transLink");
-                    a.classList.add("selected");
 
-                    a.textContext = title;
+                    a.textContent = title;
                     a.setAttribute('href', href);
                     li.appendChild(a);
                     history.appendChild(li);
@@ -166,7 +165,10 @@ if(!empty($_POST['submit'])){
                     let href = "details.php?id=" + result[i].transID;
                     let title = result[i].sender_firstname + " sent you " + result[i].amount + " tokens.";
 
-                    a.textContext = title;
+                    li.classList.add("transItems");
+                    a.classList.add("transLink");
+
+                    a.textContent = title;
                     a.setAttribute('href', href);
                     li.appendChild(a);
                     history.appendChild(li);
