@@ -41,10 +41,10 @@ $transactions = $history->history($userID);
         <div class="col-md-8 p-0 h-md-100">
             <div class="text-black h-100 p-5">
                 <div class="header">
-                <h1>Hi, <?php echo $name['firstname']; ?>!</h1>
-                <button type="button" class="btn btn-default btn-sm"><a class="logout-btn" href="logout.php"> Log out</a></button>
+                    <h1>Hi, <?php echo $name['firstname']; ?>!</h1>
+                    <button type="button" class="btn btn-default btn-sm"><a class="logout-btn" href="logout.php"> Log out</a></button>
                 </div>
-                <h4 id="saldo">Your saldo is <?php echo $gains-$losses; ?> tokens</h4>
+                <h4 id="saldo">Your saldo is <?php echo $gains - $losses; ?> tokens</h4>
                 <input type="hidden" id="hidden" name="hidden" value="<?php echo $userID; ?>">
                 <div>
                     <form action="ajax/searchName.php" method="POST">
@@ -54,7 +54,7 @@ $transactions = $history->history($userID);
                 <div>
                     <div>
                         <ul id="results" class="listitems">
-                            <?php foreach($users as $user): ?>
+                            <?php foreach ($users as $user) : ?>
                                 <li><a href="transaction.php?id=<?php echo $user['userID']; ?>"><?php echo $user['firstname'] . " " . $user['lastname']; ?></a></li>
                             <?php endforeach; ?>
                         </ul>
@@ -66,14 +66,14 @@ $transactions = $history->history($userID);
         <div class="col-md-4 p-0 bg-white h-md-100">
             <div class="h-md-100 p-5 brandingarea">
                 <h2 class="history">History</h2>
-                <ul class="listitems">
+                <ul class="listitems" id="listitems">
                     <?php
                     foreach ($transactions as $trans) : ?>
                         <?php
                         if ($trans['recipientID'] == $userID) { ?>
-                            <li class="transItems"><a class="transLink" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?></a><a class="transMore" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
+                            <li class="transItems"><a class="transLink" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?></a></li>
                         <?php } else { ?>
-                            <li class="transItems"><a class="transLink" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo "You sent " . $trans['recipient_firstname'] . " " . $trans['amount'] . " tokens"; ?></a><a class="transMore" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
+                            <li class="transItems"><a class="transLink" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo "You sent " . $trans['recipient_firstname'] . " " . $trans['amount'] . " tokens"; ?></a></li>
                         <?php } ?>
                     <?php endforeach; ?>
                 </ul>
@@ -119,33 +119,91 @@ $transactions = $history->history($userID);
 
         window.onload = timer;
 
-        function timer(){
+        function timer() {
             setInterval(() => {
                 update()
             }, 3000);
+
+            setInterval(() => {
+                updateHistory()
+            }, 3000);
         }
 
+        const userID = document.getElementById("hidden").value;
+        console.log(userID);
+
         function update() {
-            const userID = document.getElementById("hidden").value;
-
-            console.log(userID);
-
             let formData = new FormData();
             formData.append('userID', userID);
 
             fetch('ajax/updateSaldo.php', {
-                method: 'POST',
-                body: formData
-            })
+                    method: 'POST',
+                    body: formData
+                })
 
-            .then(response => response.json())
-            .then(result => {
+                .then(response => response.json())
+                .then(result => {
                     console.log(result);
                     saldo.innerHTML = "Your saldo is " + result + " tokens"
-            })
-            .catch(error => {
-            console.error('Error:', error);
-            });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function updateHistory() {
+            let formData = new FormData();
+            formData.append('userID', userID);
+
+            fetch('ajax/fetchHistory.php', {
+                    method: 'POST',
+                    body: formData
+                })
+
+                .then(response => response.json())
+                .then(result => viewHistory(result))
+                .catch(error => {
+                    console.log('Error: ', error);
+                });
+        }
+
+        function viewHistory(result) {
+            const history = document.getElementById("listitems");
+            history.innerHTML = "";
+
+            for (let i = 0; i < result.length; i++) {
+                if (result[i].senderID == userID) {
+                    let a = document.createElement("a");
+                    let li = document.createElement("li");
+                    let href = "details.php?id=" + result[i].transID;
+                    let title = "You sent " + result[i].recipient_firstname + " " + result[i].amount + " tokens.";
+
+                    li.classList.add("transItems");
+                    a.classList.add("transLink");
+
+                    a.textContent = title;
+                    a.setAttribute('href', href);
+                    li.appendChild(a);
+                    history.appendChild(li);
+
+                    console.log("history items updated");
+                } else {
+                    let a = document.createElement("a");
+                    let li = document.createElement("li");
+                    let href = "details.php?id=" + result[i].transID;
+                    let title = result[i].sender_firstname + " sent you " + result[i].amount + " tokens.";
+
+                    li.classList.add("transItems");
+                    a.classList.add("transLink");
+
+                    a.textContent = title;
+                    a.setAttribute('href', href);
+                    li.appendChild(a);
+                    history.appendChild(li);
+
+                    console.log("history items updated");
+                }
+            }
         }
     </script>
 </body>
