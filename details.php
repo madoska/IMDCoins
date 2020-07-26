@@ -86,7 +86,7 @@ $transactions = $history->history($userID);
         const userID = document.getElementById("hidden").value;
         console.log(userID);
 
-        const transID = document.getElementById("transHidden").value;
+        let transID = document.getElementById("transHidden").value;
         console.log(transID);
 
         function updateHistory(){
@@ -124,7 +124,9 @@ $transactions = $history->history($userID);
                     li.appendChild(a);
                     history.appendChild(li);
 
-
+                    if(transID == result[i].transID){
+                        a.classList.add("selected");
+                    } else {}
 
                     console.log("history items updated");
                 } else {
@@ -140,6 +142,10 @@ $transactions = $history->history($userID);
                     a.setAttribute('href', href);
                     li.appendChild(a);
                     history.appendChild(li);
+
+                    if(transID == result[i].transID){
+                        a.classList.add("selected");
+                    } else {}
 
                     console.log("history items updated");
                 }
