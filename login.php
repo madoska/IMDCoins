@@ -50,7 +50,7 @@ if (!empty($_POST['login'])) {
                 <div class="flex-box">
                     <h1 class="title">Login</h1>
                     <div class='alert alert-danger' <?php if($alert != 1){ echo "style='display:none'"; } else {} ?>>Incorrect login data. Please try again.</div>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                         <div>
                             <input type="text" name="email" id="email" placeholder="Email">
                         </div>

@@ -57,7 +57,7 @@ if(!empty($_POST['submit'])){
                     <h4 id="saldo">Your saldo is <?php echo $gains-$losses; ?> tokens</h4>
                     <input type="hidden" id="hidden" name="hidden" value="<?php echo $userID; ?>">
                         <div class="columns">
-                            <form action="" method="post" class="transaction-form">
+                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="transaction-form">
                                 <div><div class='alert alert-danger' <?php if($alert != 1){ echo "style='display:none'"; } else {} ?>><strong>Error!</strong> You don't have enough tokens to complete this transfer 😔</div></div>
                                 <div class=""><div class='alert alert-danger' <?php if($alert != 2){ echo "style='display:none'"; } else {} ?>><strong>Error!</strong> Amount too low; must be at least 1 token.</div></div>
                                 <div><div class='alert alert-success' <?php if($alert != 3){ echo "style='display:none'"; } else {} ?>><strong>Success!</strong> Transfer complete 🤑</div></div>

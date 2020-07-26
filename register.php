@@ -109,7 +109,7 @@ if (!empty($_POST['register'])) {
                     <div class='alert alert-danger' <?php if($alert != 4){ echo "style='display:none'"; } else {} ?>>Passwords don't match.</div>
                     <div class='alert alert-danger' <?php if($alert != 5){ echo "style='display:none'"; } else {} ?>>Password too short.</div>
 
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                         <div class="flex">
                             <input type="text" name="firstname" id="firstname" placeholder="First name">
                         </div>

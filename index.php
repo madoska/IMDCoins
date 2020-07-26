@@ -47,7 +47,7 @@ $transactions = $history->history($userID);
                 <h4 id="saldo">Your saldo is <?php echo $gains - $losses; ?> tokens</h4>
                 <input type="hidden" id="hidden" name="hidden" value="<?php echo $userID; ?>">
                 <div>
-                    <form action="ajax/searchName.php" method="POST">
+                    <form action="ajax/searchName.php" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                         <input type="text" class="search" name="recipient" oninput=searchName(this.value) id="recipient" placeholder="Search user">
                     </form>
                 </div>
