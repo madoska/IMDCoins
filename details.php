@@ -60,9 +60,9 @@ $transactions = $history->history($userID);
                     foreach ($transactions as $trans) : ?>
                         <?php
                         if ($trans['recipientID'] == $userID) { ?>
-                            <li class="transItems"><a class="transLink <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?></a><a class="transMore <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
+                            <li class="transItems"><a class="transLink <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo  $trans['sender_firstname'] . " sent you " . $trans['amount'] . " tokens"; ?></a></li>
                         <?php } else { ?>
-                            <li class="transItems"><a class="transLink <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo "You sent " . $trans['recipient_firstname'] . " " . $trans['amount'] . " tokens"; ?></a><a class="transMore <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>">></a></li>
+                            <li class="transItems"><a class="transLink <?php if ($transID == $trans['transID']) {echo "selected";} else {}; ?>" href="details.php?id=<?php echo $trans['transID']; ?>"><?php echo "You sent " . $trans['recipient_firstname'] . " " . $trans['amount'] . " tokens"; ?></a></li>
                         <?php }
 
                         if($transID == $trans['transID']){
@@ -123,6 +123,8 @@ $transactions = $history->history($userID);
                     a.setAttribute('href', href);
                     li.appendChild(a);
                     history.appendChild(li);
+
+
 
                     console.log("history items updated");
                 } else {
